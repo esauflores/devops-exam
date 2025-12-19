@@ -1,0 +1,10 @@
+- hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Apply Kubernetes manifests
+      kubernetes.core.k8s:
+        kubeconfig: "{{ lookup('env', 'KUBECONFIG') }}"
+        state: present
+        definition: "{{ lookup('file', '../definition.yml') }}"

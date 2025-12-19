@@ -1,0 +1,21 @@
+- hosts: docker
+  become: true
+
+  vars:
+    CONTAINER_NAME: "{{ CONTAINER_NAME | default('devops-exam-js') }}"
+
+  tasks:
+    - name: Pull Docker image
+      command: docker pull {{ CONTAINER_NAME }}
+
+    - name: Stop & remove existing container (if any)
+      command: docker rm -f myapp
+      ignore_errors: true
+
+    - name: Run container
+      command: >
+        docker run -d
+        --name myapp
+        --restart unless-stopped
+        -p 4444:4444
+        {{ CONTAINER_NAME }}

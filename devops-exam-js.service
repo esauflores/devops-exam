@@ -1,0 +1,17 @@
+[Unit]
+Description=DevOps Node App
+After=network.target
+
+[Service]
+Type=simple
+User=laborant
+Group=laborant
+WorkingDirectory=/app
+ExecStart=/usr/bin/node .
+Restart=always
+RestartSec=5
+Environment=HOME=/app
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
